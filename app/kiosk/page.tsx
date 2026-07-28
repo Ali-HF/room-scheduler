@@ -808,9 +808,11 @@ export default function KioskPage() {
                             </div>
                             <div className="text-xs text-gray-500 font-mono mt-0.5">
                               {isBusy && statusData?.busySlots?.[0]
-                                ? `${formatTime(statusData.busySlots[0].start)} – ${formatTime(
+                                ? `Booked: ${formatTime(statusData.busySlots[0].start)} – ${formatTime(
                                     statusData.busySlots[0].end
                                   )}`
+                                : isBusy
+                                ? "Currently booked / occupied"
                                 : "No active meetings right now"}
                             </div>
                           </div>
@@ -826,7 +828,7 @@ export default function KioskPage() {
                                 isBusy ? "text-rose-600" : "text-emerald-600"
                               }`}
                             >
-                              {isBusy ? "In Meeting" : "Available"}
+                              {isBusy ? "Booked • In Meeting" : "Available"}
                             </span>
                           </div>
                         </div>
