@@ -36,10 +36,12 @@ Just open your web browser on your computer or tablet, go to the web addresses l
   - On the main Welcome screen, click the **"HAVE A QR CODE?"** button.
   - Type any 6-digit code (for example, `849201`) and click **"VERIFY"**.
   - You should see a welcome message confirming the meeting invite.
+  - Notice that after 8 seconds, the screen automatically resets and returns to the main Welcome screen.
 - [ ] **Test Delivery Mode**:
   - On the main Welcome screen, click the **"DELIVERY"** button.
   - Select a delivery carrier (like FedEx or UPS) and pick the employee receiving the package.
   - Click **"Notify Recipient of Delivery"** — a confirmation message will tell the courier where to leave the package.
+  - Notice that after 8 seconds, the screen automatically resets and returns to the main Welcome screen.
 
 ---
 

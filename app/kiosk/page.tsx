@@ -320,6 +320,28 @@ export default function KioskPage() {
     return () => clearTimeout(timer);
   }, [checkInResult]);
 
+  // Auto-reset QR success after 8 seconds
+  useEffect(() => {
+    if (!qrSuccess) return;
+    const timer = setTimeout(() => {
+      setQrSuccess(false);
+      setInviteCode("");
+      setView("home");
+    }, 8000);
+    return () => clearTimeout(timer);
+  }, [qrSuccess]);
+
+  // Auto-reset delivery success after 8 seconds
+  useEffect(() => {
+    if (!deliverySuccess) return;
+    const timer = setTimeout(() => {
+      setDeliverySuccess(false);
+      setDeliveryRecipient("");
+      setView("home");
+    }, 8000);
+    return () => clearTimeout(timer);
+  }, [deliverySuccess]);
+
   const formatTime = (isoString: string) => {
     return new Date(isoString).toLocaleTimeString([], {
       hour: "2-digit",
@@ -594,6 +616,9 @@ export default function KioskPage() {
                 >
                   Return to Welcome Screen
                 </button>
+                <p className="text-xs text-gray-400 uppercase tracking-widest mt-3">
+                  Auto-returning in 8 seconds…
+                </p>
               </div>
             ) : (
               <div className="space-y-6">
@@ -675,6 +700,9 @@ export default function KioskPage() {
                 >
                   Return to Welcome Screen
                 </button>
+                <p className="text-xs text-gray-400 uppercase tracking-widest mt-3">
+                  Auto-returning in 8 seconds…
+                </p>
               </div>
             ) : (
               <div className="space-y-5">
