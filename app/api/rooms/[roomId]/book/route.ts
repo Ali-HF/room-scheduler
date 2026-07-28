@@ -77,7 +77,7 @@ export async function POST(
         const eventRes = await calendar.events.insert({
           calendarId: room.calendarId,
           requestBody: {
-            summary: "Booked via Room Panel",
+            summary: `[${room.name}] Booked via Room Panel`,
             start: { dateTime: now.toISOString() },
             end: { dateTime: thirtyMinsLater.toISOString() },
           },
