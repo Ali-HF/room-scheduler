@@ -1,101 +1,77 @@
-import Image from "next/image";
+import { createClient } from "@/utils/supabase/server";
+import { cookies } from "next/headers";
+import Link from "next/link";
+import AuthButton from "@/components/AuthButton";
 
-export default function Home() {
+export default async function Page() {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+
+  const { data: todos, error } = await supabase.from("todos").select();
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center p-6">
+      <div className="max-w-xl w-full space-y-8 bg-gray-900/60 border border-gray-800 rounded-2xl p-8 shadow-2xl backdrop-blur-sm">
+        <div className="flex items-center justify-between border-b border-gray-800 pb-4">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight text-white">
+              Supabase Todos
+            </h1>
+            <p className="text-sm text-gray-400 mt-1">
+              Data fetched from Supabase &ldquo;todos&rdquo; table
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <AuthButton />
+            <Link
+              href="/me"
+              className="text-xs px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium shadow-sm transition-colors"
+            >
+              My Status (/me)
+            </Link>
+            <Link
+              href="/kiosk"
+              className="text-xs px-3 py-1.5 rounded-lg bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-600/30 transition-colors font-medium"
+            >
+              Lobby Kiosk →
+            </Link>
+            <Link
+              href="/admin/rooms"
+              className="text-xs px-3 py-1.5 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-700 transition-colors font-medium"
+            >
+              Admin Portal
+            </Link>
+            <Link
+              href="/room/cms2u6utn0000vgzwc3qg3mcu"
+              className="text-xs px-3 py-1.5 rounded-lg bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 hover:bg-indigo-600/30 transition-colors font-medium"
+            >
+              Door Panel →
+            </Link>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {error ? (
+          <div className="p-4 rounded-xl bg-red-950/40 border border-red-500/30 text-red-300 text-sm">
+            Failed to load todos: {error.message}
+          </div>
+        ) : !todos || todos.length === 0 ? (
+          <div className="text-center py-12 text-gray-500">
+            <p className="text-sm">No todos found in your Supabase table yet.</p>
+          </div>
+        ) : (
+          <ul className="divide-y divide-gray-800/60">
+            {todos.map((todo) => (
+              <li
+                key={todo.id}
+                className="py-3.5 flex items-center justify-between text-gray-200 hover:text-white transition-colors"
+              >
+                <span className="font-medium">{todo.name}</span>
+                <span className="text-xs text-gray-500">ID: {todo.id}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }
