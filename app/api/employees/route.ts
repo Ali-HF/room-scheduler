@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const DEFAULT_EMPLOYEES = [
   { name: "Ali Hasan", email: "hf.alihasan0@gmail.com", department: "Engineering" },
   { name: "Ali Hasan (Secondary)", email: "0alihasanfarooqui0@gmail.com", department: "Product & Operations" },

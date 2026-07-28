@@ -91,7 +91,7 @@ Just open your web browser on your computer or tablet, go to the web addresses l
   - You will see a simple toggle button for your profile. Click it to switch between **"In Office"** and **"Remote"**.
 - [ ] **4.3 Check Live Synchronization**:
   - After changing your status to **"Remote"**, open the Lobby Kiosk dashboard (`http://localhost:3000/kiosk`).
-  - Look for your name in the employee list — it should now instantly say **"REMOTE"**!
+  - Look for your name in the employee list — within 5 seconds, it will automatically update to **"REMOTE"** without needing to refresh the page!
 - [ ] **4.4 Unauthorized Outsider Block**:
   - If someone tries to sign in using a personal email or an email from outside your company's allowed domain, the system blocks them immediately with a friendly **"Not Authorized"** screen so they cannot change any staff settings.
 

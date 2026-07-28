@@ -194,11 +194,11 @@ export default function KioskPage() {
     return () => clearInterval(interval);
   }, []);
 
-  // Fetch employees
+  // Fetch employees initially & poll every 5s so presence changes from /me appear immediately without refresh
   useEffect(() => {
     async function loadEmployees() {
       try {
-        const res = await fetch("/api/employees");
+        const res = await fetch("/api/employees", { cache: "no-store" });
         if (res.ok) {
           const data = await res.json();
           setEmployees(data);
@@ -210,6 +210,8 @@ export default function KioskPage() {
       }
     }
     loadEmployees();
+    const interval = setInterval(loadEmployees, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   // Fetch rooms & live statuses
@@ -219,7 +221,7 @@ export default function KioskPage() {
     await Promise.all(
       roomList.map(async (room) => {
         try {
-          const res = await fetch(`/api/rooms/${room.id}/status`);
+          const res = await fetch(`/api/rooms/${room.id}/status`, { cache: "no-store" });
           if (res.ok) {
             const data: RoomStatusData = await res.json();
             statusMap[room.id] = data;
@@ -238,7 +240,7 @@ export default function KioskPage() {
   useEffect(() => {
     async function loadRooms() {
       try {
-        const res = await fetch("/api/rooms");
+        const res = await fetch("/api/rooms", { cache: "no-store" });
         if (res.ok) {
           const data: Room[] = await res.json();
           setRooms(data);
@@ -251,12 +253,12 @@ export default function KioskPage() {
     loadRooms();
   }, [fetchRoomStatuses]);
 
-  // Polling for room statuses every 15s
+  // Polling for room statuses every 5s
   useEffect(() => {
     if (rooms.length === 0) return;
     const interval = setInterval(() => {
       fetchRoomStatuses(rooms);
-    }, 15_000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [rooms, fetchRoomStatuses]);
 
